@@ -1,0 +1,34 @@
+<mat-card class="card-login">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Bienvenido</mat-card-title>
+    </mat-card-header>
+    <mat-card-content [formGroup]="formLogin">
+      <p>
+        <mat-form-field class="example-full-width">
+            <mat-label>Usuario</mat-label>
+            <input matInput placeholder="usuario" value="" formControlName="usuario">
+            <mat-error *ngIf="formLogin.get('usuario').errors != null && formLogin.get('usuario').errors.required">
+                El usuario es requerido
+            </mat-error>
+            <mat-error *ngIf="formLogin.get('usuario').errors != null && formLogin.get('usuario').errors.minlength">
+                Minimo 5 carateres
+            </mat-error>
+            <mat-error *ngIf="formLogin.get('usuario').errors != null && formLogin.get('usuario').errors.pattern">
+                No es un correo electronico
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="example-full-width">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="password" value="" formControlName="password">
+            <mat-error *ngIf="formLogin.get('password').errors != null && formLogin.get('password').errors.required">
+                Password requerido
+            </mat-error>
+       </mat-form-field>
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" [disabled]="formLogin.invalid" (click)="ingresar()">ingresar</button>
+    </mat-card-actions>
+  </mat-card>
