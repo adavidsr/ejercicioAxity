@@ -1,10 +1,30 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DataService } from './service/data.service'; 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
+
+
 export class AppComponent {
   title = 'angular10-course';
+  isLoading: boolean;
+
+  constructor(private data: DataService, private snack: MatSnackBar){
+    this.data.getMessage().subscribe(msg =>{
+      this.snack.open(msg, null, {
+      duration : 2000
+      });
+
+    });
+
+    this.data.getLoading().subscribe(loading =>{
+       this.isLoading = loading;
+      });
+
+  }
 }

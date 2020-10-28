@@ -1,0 +1,63 @@
+<mat-card class="card-laptop-detail">
+    <mat-card-header>
+      <mat-card-title>Crear Laptop</mat-card-title>
+    </mat-card-header>
+    <mat-card-content [formGroup]="formCrearLaptop">
+      <p>
+        <mat-form-field class="example-full-width">
+            <mat-label>Marca</mat-label>
+            <input matInput placeholder="Marca" value="" formControlName="marca">
+            <mat-error *ngIf="formCrearLaptop.get('marca').errors != null && formCrearLaptop.get('marca').errors.required">
+                La marca es requerida
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="example-full-width">
+            <mat-label>Memoria Ram</mat-label>
+            <input matInput placeholder="Memoria Ram" value="" formControlName="ram">
+            <mat-error *ngIf="formCrearLaptop.get('ram').errors != null && formCrearLaptop.get('ram').errors.required">
+                Memoria ram es requerido
+            </mat-error>
+       </mat-form-field>
+    <br>
+       <mat-form-field class="example-full-width">
+        <mat-label>Pantalla</mat-label>
+        <input matInput placeholder="Pantalla" value="" formControlName="pantalla">
+        <mat-error *ngIf="formCrearLaptop.get('pantalla').errors != null && formCrearLaptop.get('pantalla').errors.required">
+            La Pantalla es requerida
+        </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+       <mat-form-field class="example-full-width">
+        <mat-label>Procesador</mat-label>
+        <input matInput placeholder="Procesador" value="" formControlName="procesador">
+        <mat-error *ngIf="formCrearLaptop.get('procesador').errors != null && formCrearLaptop.get('procesador').errors.required">
+            El procesador es requerida
+        </mat-error>
+    </mat-form-field>
+    <br>
+
+<br>
+    <mat-form-field class="example-full-width">
+     <mat-label>Numero de puertos usb</mat-label>
+     <input type="number" matInput placeholder="Puertos USB" value="" formControlName="puertosUsb">
+     <mat-error *ngIf="formCrearLaptop.get('puertosUsb').errors != null && formCrearLaptop.get('puertosUsb').errors.required">
+        Numero de puertos usb son requeridos
+     </mat-error>
+ </mat-form-field>
+ </p>
+
+    </mat-card-content>
+    <p>
+        <mat-checkbox class="example-margin"
+                (change)="OnChange($event)"
+                [(checked)]="isNewLaptop">
+                ¿Es nueva la Laptop?
+        </mat-checkbox>
+    </p>
+
+    <mat-card-actions>
+        <button mat-raised-button color="primary" [disabled]="formCrearLaptop.invalid" (click)="crearLaptop()">Crear Laptop</button>
+    </mat-card-actions>
+  </mat-card>

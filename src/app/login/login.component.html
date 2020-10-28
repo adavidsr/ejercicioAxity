@@ -29,6 +29,6 @@
       </p>
     </mat-card-content>
     <mat-card-actions>
-        <button mat-raised-button color="primary" [disabled]="formLogin.invalid" (click)="ingresar()">ingresar</button>
+        <button mat-raised-button color="primary" [disabled]="formLogin.invalid || isLoading" (click)="ingresar()">ingresar</button>
     </mat-card-actions>
   </mat-card>
