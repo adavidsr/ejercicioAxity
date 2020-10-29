@@ -21,6 +21,10 @@ const routes: Routes = [
     component: LaptopDetailComponent
   },
   {
+    path:'laptop-detail/:id',
+    component: LaptopDetailComponent
+  },
+  {
     path:'home',
     component: HomeComponent,
     canActivate: [AuthService]

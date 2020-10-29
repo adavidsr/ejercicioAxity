@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ILaptop } from '../model/laptops.model';
+import { DataService } from '../service/data.service';
+import { LaptopsService } from '../service/laptops.service';
 
 @Component({
   selector: 'app-laptop-detail',
@@ -12,11 +15,40 @@ export class LaptopDetailComponent implements OnInit {
   isNewLaptop : boolean;
   formCrearLaptop: FormGroup;
   public saveUsername:boolean;
+  title: string;
+  id;
 
-  constructor(private formBuilder: FormBuilder) { 
+  constructor(
+    private formBuilder: FormBuilder, 
+    private laptops:LaptopsService, 
+    private data: DataService,
+    private router: Router,
+    private route: ActivatedRoute) { 
+
+    this.route.params.subscribe(
+      p=>{
+        
+        if(p.id){
+          this.id=p.id;
+          console.log(p.id);
+          console.log('Edicion');
+          this.title = 'Editar Elemento'
+          this.laptops.getLaptop(p.id).subscribe(
+            res =>{
+                  this.formCrearLaptop.patchValue(res);
+            }
+          );
+
+        } else {
+          this.title='Crear Elemento'
+          console.log('ALTA');
+        }
+
+      }
+    );
 
     this.isNewLaptop=false;
-    this.formCrearLaptop = this.formBuilder.group(
+    this.formCrearLaptop = this.formBuilder.group( 
       {
         marca: ['', [Validators.required]],
         ram:['', [Validators.required]],
@@ -32,30 +64,40 @@ export class LaptopDetailComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
-  crearLaptop():void{
-
-
-    const crearLaptop = {
-
-      marca: this.formCrearLaptop.get('marca').value,
-      ram: this.formCrearLaptop.get('ram').value,
-      pantalla: this.formCrearLaptop.get('pantalla').value,
-      procesador: this.formCrearLaptop.get('procesador').value,
-      puertosUsb: this.formCrearLaptop.get('puertosUsb').value,
-      isNueva: this.isNewLaptop
-  
-    } as ILaptop;
-
-    console.log('Se ha creado la laptop');
-    console.log(crearLaptop);
-  
-  }
-
   OnChange($event){
     console.log($event); 
     this.isNewLaptop = $event.checked;
 }
 
+
+save(): void {​​    
+  const dataLap = this.formCrearLaptop.value ;    
+  if(this.id) {​​      //edicion      
+    this.data.setLoading(true);      
+    this.laptops.editLaptop(this.id, dataLap).subscribe(
+      res => {​​          
+        console.log(res);      
+        this.data.setLoading(false);      
+        this.data.setMessage('Los datos se actualizaron correctamente');      
+        this.router.navigate(['laptop']);  }​​,        
+      err => {​​        
+          this.data.setLoading(false);        
+          this.data.setMessage('Los siento ocurrio un error');        
+          this.router.navigate(['laptop']);      }​​);    }​​ 
+    else {​​      //creacion      
+          this.data.setLoading(true);      
+          this.laptops.createLaptop(dataLap).subscribe(
+          
+            res => {​​      console.log(res);      
+            this.data.setLoading(false);      
+            this.data.setMessage('Los datos se enviaron correctamente');      
+            this.router.navigate(['laptop']);  }​​,      err => {​​        
+            this.data.setLoading(false);        
+            this.data.setMessage('Los siento ocurrio un error');        
+            this.router.navigate(['laptop']);      
+                }​​);    
+           }​​
+
+  }
 
 }

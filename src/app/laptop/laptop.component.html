@@ -1,3 +1,47 @@
 <button mat-raised-button color="primary" [routerLink]="'/laptop-detail'">
-    Crear Laptop
+    Registrar Laptop
 </button>
+
+<table mat-table [dataSource]="dataSource" class="table-laptops">
+
+    <ng-container matColumnDef="marca">
+      <th mat-header-cell *matHeaderCellDef> Marca </th>
+      <td mat-cell *matCellDef="let element"> {{element.marca}} </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="ram">
+      <th mat-header-cell *matHeaderCellDef> Memoria Ram </th>
+      <td mat-cell *matCellDef="let element"> {{element.ram}} </td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="pantalla">
+      <th mat-header-cell *matHeaderCellDef> Tamaño Pantalla </th>
+      <td mat-cell *matCellDef="let element"> {{element.pantalla}} </td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="procesador">
+      <th mat-header-cell *matHeaderCellDef> Procesador </th>
+      <td mat-cell *matCellDef="let element"> {{element.procesador}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="puertosUsb">
+            <th mat-header-cell *matHeaderCellDef> Numero de puertos USB </th>
+            <td mat-cell *matCellDef="let element"> {{element.puertosUsb}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let element">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" (click)=edit(element._id)>edit</mat-icon>
+            <mat-icon aria-hidden="false" aria-label="Example home icon"(click)=delete(element._id)>delete</mat-icon>
+        </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>

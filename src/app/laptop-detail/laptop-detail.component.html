@@ -1,6 +1,6 @@
 <mat-card class="card-laptop-detail">
     <mat-card-header>
-      <mat-card-title>Crear Laptop</mat-card-title>
+      <mat-card-title>{{title}} Laptop</mat-card-title>
     </mat-card-header>
     <mat-card-content [formGroup]="formCrearLaptop">
       <p>
@@ -58,6 +58,6 @@
     </p>
 
     <mat-card-actions>
-        <button mat-raised-button color="primary" [disabled]="formCrearLaptop.invalid" (click)="crearLaptop()">Crear Laptop</button>
+        <button mat-raised-button color="primary" [disabled]="formCrearLaptop.invalid" (click)="save()">Guardar</button>
     </mat-card-actions>
   </mat-card>
