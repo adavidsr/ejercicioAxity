@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,18 +10,19 @@ export class DataService {
   private message = new Subject<string>();
   private loading = new Subject<boolean>();
 
-  constructor() { }
+  constructor() {
+  }
 
-  setMessage(msg: string){
+  setMessage(msg: string) {
 
     this.message.next(msg);
   }
 
-  getMessage():Observable<string>{
+  getMessage(): Observable<string> {
     return this.message.asObservable();
   }
 
-  setToken(token:string):void{
+  setToken(token: string): void {
     sessionStorage.setItem('TOKEN', token);
   }
 
@@ -31,11 +32,11 @@ export class DataService {
     return token !== null && token !== undefined;
   }
 
-  setLoading(load: boolean){
+  setLoading(load: boolean) {
     this.loading.next(load);
   }
 
-  getLoading():Observable<boolean>{
+  getLoading(): Observable<boolean> {
     return this.loading.asObservable();
   }
 }

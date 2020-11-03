@@ -1,18 +1,19 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { DataService } from './data.service';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import {DataService} from './data.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService implements CanActivate{
+export class AuthService implements CanActivate {
 
-  constructor(private data: DataService, private router: Router) { }
+  constructor(private data: DataService, private router: Router) {
+  }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean{
-    const auth = this.data.userIsAuthenticated()
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    const auth = this.data.userIsAuthenticated();
 
-    if(!auth){
+    if (!auth) {
 
       this.router.navigate(['login']);
 
